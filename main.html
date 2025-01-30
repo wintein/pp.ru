@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP.RU</title>
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <!-- Кнопка для открытия/закрытия навигационной панели -->
+    <div id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+
+    <!-- Навигационная панель -->
+    <nav id="sidebar">
+        <div class="logo">PP.RU</div>
+        <ul>
+            <li class="active">
+                <a href="main.html">
+                    <i class="fas fa-home"></i><span>Главная</span>
+                </a>
+            </li>
+            <li>
+                <a href="myprofile.html">
+                    <i class="fas fa-user"></i><span>Мой профиль</span>
+                </a>
+            </li>
+            <li>
+                <a href="chats.html">
+                    <i class="fas fa-comments"></i><span>Мои чаты</span>
+                </a>
+            </li>
+            <li>
+                <a href="saved.html">
+                    <i class="fas fa-save"></i><span>Сохраненные</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i><span>Настройки</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="help.html">
+                    <i class="fas fa-question-circle"></i><span>Помощь</span>
+                </a>
+            </li>
+            <li>
+                <a href="donate.html">
+                    <i class="fas fa-donate"></i><span>Сделать пожертвование</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="login.html">
+                    <i class="fas fa-sign-out-alt"></i><span>Выход</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <header>
+            <h1>Добро пожаловать!</h1>
+        </header>
+        <main>
+            <div class="content">
+                <div class="row">
+                    <div class="block profile">
+                        <a href="myprofile.html">
+                            <h2><i class="fas fa-user"></i>Мой профиль</h2>
+                            <p>Последнее изменение 5ч</p>
+                            <p><i class="fas fa-bookmark"></i>12</p>
+                            <p><i class="fas fa-eye"></i>69 +7 за сегодня</p>
+                        </a>
+                    </div>
+                    <div class="block chats">
+                        <a href="chats.html">
+                            <h2><i class="fas fa-comments"></i>Мои чаты</h2>
+                            <p>2 новых сообщения</p>
+                            <p>3 пользователя онлайн</p>
+                            <p><i class="fas fa-envelope"></i>7 всего +1 сегодня</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block profiles">
+                        <h2>Профили</h2>
+                        <div class="search">
+                            <input type="text" placeholder="Поиск">
+                            <i class="fas fa-search"></i>
+                            <span>фильтр:</span>
+                            <select>
+                                <option>Frontend</option>
+                                <option>Backend</option>
+                                <option>DevOps</option>
+                                <option>Data Science</option>
+                            </select>
+                            <select>
+                                <option>Сначала новые</option>
+                                <option>Сначала популярные</option>
+                                <option>Сначала старые</option>
+                            </select>
+                        </div>
+                        <p>найдено профилей: 98</p>
+                    </div>
+                </div>
+                <div class="slider">
+                    <div class="slides">
+                        <div class="slide">
+                            <a href="profilessearch.html">
+                                <img src="slide1.png" alt="Slide 1">
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="profilessearch.html">
+                                <img src="slide2.png" alt="Slide 2">
+                            </a>
+                        </div>
+                    </div>
+                    <button class="slider-button prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-button next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>© 2025 PP.RU</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

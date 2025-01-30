@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #444444; 
+            height: 100vh; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Montserrat', sans-serif; 
+        }
+
+        .logo {
+            background-color: black; 
+            color: white; 
+            font-size: 36px; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            border-radius: 10px; 
+            flex-shrink: 0; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+
+        .content-block {
+            width: 33%; 
+            max-width: 400px; 
+            background-color: white; 
+            border-radius: 20px; 
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); 
+            padding: 30px; 
+            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .reset-form {
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .reset-form h1 {
+            color: #444444; 
+            font-size: 24px; 
+            font-weight: 800; 
+            margin-bottom: 10px; 
+            text-align: center; 
+        }
+
+        .reset-form p {
+            color: #444444; 
+            font-size: 14px; 
+            font-weight: 400; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px; 
+        }
+
+        .input-group label {
+            color: #444444; 
+            font-size: 14px; 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 5px; 
+        }
+
+        .input-group input {
+            width: calc(100% - 24px); 
+            padding: 12px; 
+            border: 2px solid #444444; 
+            border-radius: 10px; 
+            font-size: 14px; 
+            font-family: 'Montserrat', sans-serif; 
+            outline: none; 
+            transition: border-color 0.3s ease; 
+        }
+
+        .input-group input:focus {
+            border-color: black; 
+        }
+
+        .reset-button {
+            background-color: #444444; 
+            color: white; 
+            font-size: 18px; 
+            font-weight: 600; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-bottom: 20px; 
+        }
+
+        .reset-button:hover {
+            background-color: black; 
+            transform: scale(1.05); 
+        }
+
+        .login-text {
+            display: flex;
+            align-items: center; 
+            color: #444444; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+        }
+
+        .login-text::before,
+        .login-text::after {
+            content: '';
+            flex: 1; 
+            height: 1px; 
+            background-color: #444444; 
+            margin: 0 10px; 
+        }
+
+        .login-button {
+            background-color: white; 
+            color: #444444; 
+            font-size: 18px; 
+            font-weight: 600; 
+            padding: 15px; 
+            border: 2px solid #444444; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+
+        .login-button:hover {
+            background-color: #f0f0f0; 
+            transform: scale(1.05); 
+        }
+
+        /* Адаптивность для маленьких экранов */
+        @media (max-width: 768px) {
+            .content-block {
+                width: 90%; 
+                max-width: none; 
+            }
+            .input-group input {
+                padding: 10px; 
+            }
+
+            .reset-button,
+            .login-button {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-block {
+                width: 95%; 
+            }
+
+            .input-group input {
+                padding: 8px; 
+            }
+
+            .reset-button,
+            .login-button {
+                padding: 10px; 
+            }
+        }
+        
