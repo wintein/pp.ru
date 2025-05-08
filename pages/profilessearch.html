@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP.RU</title>
+    <link rel="icon" type="image/x-icon" href="../sources/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../styles/settings.css">
+</head>
+<body>
+    <!-- Кнопка для открытия/закрытия навигационной панели -->
+    <div id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+
+    <!-- Навигационная панель -->
+    <nav id="sidebar">
+        <div class="logo">PP.RU</div>
+        <ul>
+            <li class="active">
+                <a href="main.html">
+                    <i class="fas fa-home"></i><span>Главная</span>
+                </a>
+            </li>
+            <li>
+                <a href="myprofile.html">
+                    <i class="fas fa-user"></i><span>Мой профиль</span>
+                </a>
+            </li>
+            <li>
+                <a href="chats.html">
+                    <i class="fas fa-comments"></i><span>Мои чаты</span>
+                </a>
+            </li>
+            <li>
+                <a href="saved.html">
+                    <i class="fas fa-save"></i><span>Сохраненные</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i><span>Настройки</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="help.html">
+                    <i class="fas fa-question-circle"></i><span>Помощь</span>
+                </a>
+            </li>
+            <li>
+                <a href="donate.html">
+                    <i class="fas fa-donate"></i><span>Сделать пожертвование</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="login.html">
+                    <i class="fas fa-sign-out-alt"></i><span>Выход</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <header>
+            <h1>Поиск профилей</h1>
+        </header>
+        <main>
+            <div class="content">
+                <div class="row">
+                    <div class="block">
+                        <h2>Данный раздел находится в разработке, приходите позже!</h2>
+                        <div class="gif">
+                            <img class="gif" src="../sources/indev.gif">
+                        </div>
+                        <button type="button" class="button" onclick="location.href = 'main.html'">На главную</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>© 2025 PP.RU</p>
+    </footer>
+    <script src="../scripts/navbar.js"></script>
+</body>
+</html>

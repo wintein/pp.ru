@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сброс пароля</title>
+    <link rel="icon" type="image/x-icon" href="../sources/icon.png">
+    <link rel="stylesheet" href="../styles/newpswd.css">
+</head>
+<body>
+    <div class="logo">PP.RU</div>
+    <div class="content-block">
+        <form class="new-password-form" onsubmit="return validatePasswords()">
+            <h1>Новый пароль</h1>
+            <p>Ваш новый пароль должен отличаться от текущего и содержать не меньше 8 символов</p>
+
+            <div class="input-group">
+                <label for="new-password">Новый пароль</label>
+                <div style="position: relative;">
+                    <input type="password" id="new-password" placeholder="Введите новый пароль" required>
+                    <div class="password-toggle" onclick="togglePasswordVisibility('new-password')"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Подтверждение пароля</label>
+                <div style="position: relative;">
+                    <input type="password" id="confirm-password" placeholder="Повторите новый пароль" required>
+                    <div class="password-toggle" onclick="togglePasswordVisibility('confirm-password')"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="reset-button">Сбросить пароль</button>
+
+            <div class="login-text">
+                <span>Вспомнили пароль?</span>
+            </div>
+
+            <button type="button" class="login-button" onclick="window.location.href='login.html'">Войти</button>
+        </form>
+    </div>
+    <script src = "../scripts/newpswd.js"></script>
+</body>
+</html>

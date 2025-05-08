@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донат</title>
+    <link rel="icon" type="image/x-icon" href="../sources/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../styles/donate.css">
+</head>
+<body>
+    <!-- Кнопка для открытия/закрытия навигационной панели -->
+    <div id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+
+    <!-- Навигационная панель -->
+    <nav id="sidebar">
+        <div class="logo">PP.RU</div>
+        <ul>
+            <li>
+                <a href="main.html">
+                    <i class="fas fa-home"></i><span>Главная</span>
+                </a>
+            </li>
+            <li>
+                <a href="myprofile.html">
+                    <i class="fas fa-user"></i><span>Мой профиль</span>
+                </a>
+            </li>
+            <li>
+                <a href="chats.html">
+                    <i class="fas fa-comments"></i><span>Мои чаты</span>
+                </a>
+            </li>
+            <li>
+                <a href="saved.html">
+                    <i class="fas fa-save"></i><span>Сохраненные</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i><span>Настройки</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="help.html">
+                    <i class="fas fa-question-circle"></i><span>Помощь</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="donate.html">
+                    <i class="fas fa-donate"></i><span>Сделать пожертвование</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="login.html">
+                    <i class="fas fa-sign-out-alt"></i><span>Выход</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <header>
+            <h1>Внесение пожертвований</h1>
+        </header>
+        <main>
+            <div class="content">
+                <div class="row">
+                    <div class="block">
+                        <h2>Хотите сделать пожертвование создателям сайта?</h2>
+                        <img class="gif" src="osaka.gif">
+                        
+                        <h2>Реквизиты: <u>1234 5678 9101 1121</u></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block">
+                        <h2>Топ донатеров сайта:</h2>
+                        <div class="donators-table-container">
+                            <table class="donators-table">
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Ник донатера</th>
+                                        <th>Дата</th>
+                                        <th>Размер доната</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>tyler_durden</td>
+                                        <td>2025-01-10</td>
+                                        <td>500 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>WalterWhite</td>
+                                        <td>2024-12-21</td>
+                                        <td>300 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>lightningMCqueen</td>
+                                        <td>2025-01-20</td>
+                                        <td>200 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Einstein</td>
+                                        <td>2024-11-14</td>
+                                        <td>100 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Om Nom</td>
+                                        <td>2024-09-15</td>
+                                        <td>50 ₽</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="button" onclick="location.href = 'main.html'">На главную</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>© 2025 PP.RU</p>
+    </footer>
+    <script src="../scripts/navbar.js"></script>
+</body>
+</html>
