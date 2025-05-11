@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Раздел в разработке | PP.RU</title>
+    <link rel="icon" type="image/x-icon" href="../sources/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8fafc;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .coming-soon-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .coming-soon-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .coming-soon-text {
+            font-size: 18px;
+            color: #4b5563;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .construction-gif {
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-home-btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .back-home-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-title {
+                font-size: 28px;
+            }
+            
+            .coming-soon-text {
+                font-size: 16px;
+            }
+            
+            .back-home-btn {
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="coming-soon-container">
+        <h1 class="coming-soon-title">Раздел в разработке 🚧</h1>
+        <p class="coming-soon-text">
+            Наша команда активно работает над этим разделом. Скоро здесь появится что-то интересное!
+            А пока вы можете вернуться на главную страницу и изучить другие возможности нашей платформы.
+        </p>
+        
+        <!-- Гифка-заглушка (замените на свою) -->
+        <img src="../sources/indev.gif" alt="В разработке" class="construction-gif">
+        
+        <!-- Кнопка возврата на главную -->
+        <a href="main.html" class="back-home-btn">
+            <i class="fas fa-home"></i>
+            Вернуться на главную
+        </a>
+    </div>
+
+    <script>
+        // Можно добавить анимацию при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.coming-soon-title, .coming-soon-text, .construction-gif, .back-home-btn');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>

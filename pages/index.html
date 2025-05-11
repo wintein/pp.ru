@@ -3,40 +3,1210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PP.RU</title>
+    <title>PP.RU - Найди свою команду</title>
     <link rel="icon" type="image/x-icon" href="../sources/icon.png">
-    <link rel="stylesheet" href="../styles/welcome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8fafc;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Мобильное меню - бургер */
+        .mobile-menu-btn {
+            display: none;
+            position: absolute;
+            top: 35px;
+            left: 24px;
+            width: 40px;
+            height: 40px;
+            z-index: 1000;
+            cursor: pointer;
+            background: #3b82f6;
+            border-radius: 8px;
+            padding: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .mobile-menu-btn span:nth-child(1) {
+            transform: translateY(-8px);
+        }
+
+        .mobile-menu-btn span:nth-child(2) {
+            transform: translateY(0);
+        }
+
+        .mobile-menu-btn span:nth-child(3) {
+            transform: translateY(8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(0) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(0) rotate(-45deg);
+        }
+
+        /* Навигационная панель */
+        nav {
+            width: 250px;
+            background-color: #202123;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: all 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        /* Затемнение фона при открытом меню */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        nav .logo {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            padding: 12px 16px;
+            color: #8C8C8D;
+            cursor: pointer;
+            margin-left: -20px;
+            margin-right: -20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li:hover {
+            background-color: #2d3748;
+            color: white;
+        }
+
+        nav ul li.active {
+            background-color: #3b82f6; 
+            color: white;
+        }
+
+        nav ul li.active i {
+            color: white;
+        }
+
+        nav ul li i {
+            margin-right: 12px;
+            color: #8C8C8D;
+            width: 20px;
+            text-align: center;
+        }
+
+        nav ul li.divider {
+            border-top: 1px solid #374151;
+            margin: 15px -20px;
+            padding: 0;
+            height: 1px;
+        }
+
+        nav ul li a {
+            color: inherit;
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            width: 100%; 
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            background-color: white;
+            padding: 24px;
+            width: 100%;
+            height: 115px;
+            display: flex; /* Включаем flex-контейнер */
+            align-items: center; /* Выравниваем содержимое по вертикали */
+            justify-content: center; /* Выравниваем по горизонтали */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        header h1 {
+            color: #1f2937;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        main {
+            background-color: #f3f4f6;
+            padding: 24px;
+            flex-grow: 1;
+        }
+
+        .content {
+            display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        }
+
+        .row {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        /* Обновленные стили для блоков профиля и чатов */
+        .block {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            width: 100%;
+            max-width: 480px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .block:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-color: #d1d5db;
+        }
+
+        .block-header {
+            padding: 20px;
+            background-color: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .block-header i {
+            font-size: 24px;
+            color: #3b82f6;
+            background-color: #eff6ff;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .block-content {
+            padding: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-item i {
+            margin-right: 12px;
+            color: #6b7280;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .stat-text {
+            font-size: 16px;
+            color: #4b5563;
+        }
+
+        .stat-value {
+            margin-left: auto;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .highlight {
+            color: #3b82f6;
+        }
+
+        /* Обновленные стили для поиска и фильтров */
+        .search-container {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .search-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .search input {
+            padding: 12px 16px 12px 44px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+            color: #1f2937;
+            font-size: 16px;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search select {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+            color: #1f2937;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-right: 8px;
+        }
+
+        .profiles-count {
+            text-align: center;
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        /* Стили для слайдера (оставлены без изменений) */
+        .profiles-slider {
+            position: relative;
+            width: 100%;
+            margin: 20px auto;
+            margin-bottom: 0px;
+            overflow: hidden;
+        }
+
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .profile-specialty {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .profile-specialty.frontend {
+            color: #4CAF50;
+        }
+
+        .profile-specialty.backend {
+            color: #2196F3;
+        }
+
+        .profile-specialty.devops {
+            color: #FF9800;
+        }
+
+        .profile-specialty.datascience {
+            color: #9C27B0;
+        }
+
+        .profile-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .profile-date {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .bookmark-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .bookmark-btn:hover {
+            color: #ff9800;
+        }
+
+        .bookmark-btn.active {
+            color: #ff9800;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background-color: #555;
+            transform: scale(1.2);
+        }
+
+        /* Модальное окно авторизации */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-modal-content {
+            background-color: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal.active .auth-modal-content {
+            transform: translateY(0);
+        }
+
+        .auth-modal-icon {
+            font-size: 48px;
+            color: #3b82f6;
+            margin-bottom: 20px;
+        }
+
+        .auth-modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .auth-modal-text {
+            font-size: 16px;
+            color: #4b5563;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .auth-modal-btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .auth-modal-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Футер */
+        footer {
+            background-color: #202123;
+            color: white;
+            padding: 24px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            color: #9ca3af;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .social-links a {
+            color: #d1d5db;
+            font-size: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: #3b82f6;
+        }
+
+        @media (max-width: 1024px) {
+            .profiles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            nav {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            nav.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .row {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .block {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .block-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .block-header i {
+                margin-bottom: 8px;
+            }
+
+            .search-title {
+                font-size: 20px;
+            }
+
+            .search select {
+                width: 100%;
+            }
+
+            .filter-label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            header h1 {
+                font-size: 22px;
+                padding-left: 40px;
+            }
+            nav .logo {
+            font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="content-block">
-        <div class="header">
-            <div class="logo">PP.RU</div>
-            <div class="welcome-text">
-                Добро пожаловать на pp.ru — платформу для самозанятых IT-специалистов и фрилансеров!
+    <!-- Кнопка бургер-меню -->
+    <div class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Затемнение фона -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Модальное окно авторизации -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <div class="auth-modal-icon">
+                <i class="fas fa-lock"></i>
             </div>
-        </div>
-        <div class="main-content">
-            <p>
-                Нужен напарник для участия в интересных задачах?<br>
-                Или желаете создать команду для работы над серьезными проектами?<br>
-                Тогда вы попали именно туда, куда вам нужно!
-            </p>
-            <p>
-                Наш сайт создан специально для тех, кто хочет развиваться, находить единомышленников и работать в команде. Здесь вы можете:
-            </p>
-            <ul>
-                <li>Разместить свою анкету с описанием ваших навыков и компетенций</li>
-                <li>Найти программистов и других специалистов с нужными вам навыками</li>
-                <li>Начать совместные проекты, делясь опытом и знаниями</li>
-            </ul>
-            <p>
-                Мы помогаем IT-специалистам находить друг друга и реализовывать свои идеи вместе. Независимо от того, хотите ли вы просто набраться опыта и улучшить свои навыки или создать нечто грандиозное — присоединяйтесь к нашему сообществу и начинайте развиваться уже сегодня!
-            </p>
-        </div>
-        <div class="button-container">
-            <button class="start-button" onclick="location.href = 'login.html'">Начать!</button>
-            <a href="new_instruction.html" class="instruction-link">Инструкция для новых пользователей</a>
+            <h2 class="auth-modal-title">Требуется авторизация</h2>
+            <p class="auth-modal-text">Для доступа к этому разделу необходимо войти в систему или зарегистрироваться.</p>
+            <a href="login.html" class="auth-modal-btn">Войти / Зарегистрироваться</a>
         </div>
     </div>
+
+    <!-- Навигационная панель -->
+    <nav id="sidebar">
+        <div class="logo">PP.RU</div>
+        <ul>
+            <li class="active">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-home"></i><span>Главная</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i><span>Мой профиль</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-comments"></i><span>Мои чаты</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-save"></i><span>Сохраненные</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i><span>Настройки</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-question-circle"></i><span>Помощь</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-donate"></i><span>Сделать пожертвование</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="login.html">
+                    <i class="fas fa-sign-out-alt"></i><span>Вход</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <header>
+            <h1>Найди свою команду для совместных проектов</h1>
+        </header>
+        <main>
+            <div class="content">
+                <div class="row">
+                    <!-- Обновленный блок "Мой профиль" -->
+                    <div class="block" id="profileBlock">
+                        <div class="block-header">
+                            <i class="fas fa-user"></i>
+                            <h2>Мой профиль</h2>
+                        </div>
+                        <div class="block-content">
+                            <div class="stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span class="stat-text">Последнее изменение</span>
+                                <span class="stat-value">5ч назад</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-bookmark highlight"></i>
+                                <span class="stat-text">Закладки</span>
+                                <span class="stat-value">12</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-eye highlight"></i>
+                                <span class="stat-text">Просмотры</span>
+                                <span class="stat-value">69 <span class="highlight">(+7 сегодня)</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Обновленный блок "Мои чаты" -->
+                    <div class="block" id="chatsBlock">
+                        <div class="block-header">
+                            <i class="fas fa-comments"></i>
+                            <h2>Мои чаты</h2>
+                        </div>
+                        <div class="block-content">
+                            <div class="stat-item">
+                                <i class="fas fa-bell highlight"></i>
+                                <span class="stat-text">Новые сообщения</span>
+                                <span class="stat-value">2</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-circle highlight"></i>
+                                <span class="stat-text">Пользователи онлайн</span>
+                                <span class="stat-value">3</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-envelope highlight"></i>
+                                <span class="stat-text">Всего сообщений</span>
+                                <span class="stat-value">7 <span class="highlight">(+1 сегодня)</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Обновленный блок поиска и фильтров -->
+                <div class="search-container">
+                    <h2 class="search-title">Профили разработчиков</h2>
+                    <div class="search">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Поиск по имени или навыкам" id="searchInput">
+                        </div>
+                        <div>
+                            <span class="filter-label">Специальность:</span>
+                            <select id="specialtyFilter">
+                                <option value="all">Все</option>
+                                <option value="frontend">Frontend</option>
+                                <option value="backend">Backend</option>
+                                <option value="devops">DevOps</option>
+                                <option value="datascience">Data Science</option>
+                            </select>
+                        </div>
+                        <div>
+                            <span class="filter-label">Сортировка:</span>
+                            <select id="dateFilter">
+                                <option value="newest">Сначала новые</option>
+                                <option value="popular">Сначала популярные</option>
+                                <option value="oldest">Сначала старые</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="profiles-count" id="profilesCount">найдено профилей: 27</p>
+                    
+                    <!-- Слайдер профилей (оставлен без изменений) -->
+                    <div class="profiles-slider">
+                        <div class="slides-container" id="slidesContainer">
+                            <!-- Слайд 1 -->
+                            <div class="slide">
+                                <div class="profiles-grid" id="profilesGrid1">
+                                    <!-- Профили будут добавлены через JavaScript -->
+                                </div>
+                            </div>
+                            <!-- Слайд 2 -->
+                            <div class="slide">
+                                <div class="profiles-grid" id="profilesGrid2">
+                                    <!-- Профили будут добавлены через JavaScript -->
+                                </div>
+                            </div>
+                            <!-- Слайд 3 -->
+                            <div class="slide">
+                                <div class="profiles-grid" id="profilesGrid3">
+                                    <!-- Профили будут добавлены через JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Навигационные точки -->
+                        <div class="slider-nav">
+                            <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                            <div class="slider-dot" onclick="goToSlide(1)"></div>
+                            <div class="slider-dot" onclick="goToSlide(2)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">О нас</a>
+                <a href="#">Правила</a>
+                <a href="#">Конфиденциальность</a>
+                <a href="#">Контакты</a>
+                <a href="#">Вакансии</a>
+            </div>
+            <p>© 2025 PP.RU - Платформа для поиска IT-команд</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-vk"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Данные профилей
+        const profilesData = [
+            { name: "Алексей Петров", specialty: "frontend", description: "React-разработчик с 3-летним опытом. Участвовал в создании 5 крупных проектов.", date: "10.05.2024", bookmarked: false },
+            { name: "Ирина Смирнова", specialty: "backend", description: "Java-разработчик, специализируюсь на Spring Framework. Опыт работы - 4 года.", date: "09.05.2024", bookmarked: true },
+            { name: "Дмитрий Иванов", specialty: "devops", description: "DevOps инженер с опытом настройки CI/CD, Docker, Kubernetes. Работаю в IT 6 лет.", date: "08.05.2024", bookmarked: false },
+            { name: "Ольга Кузнецова", specialty: "datascience", description: "Data Scientist, специализация - машинное обучение и анализ данных. Кандидат наук.", date: "07.05.2024", bookmarked: false },
+            { name: "Сергей Васильев", specialty: "frontend", description: "Vue.js разработчик. Создаю сложные SPA приложения. Опыт 2 года.", date: "06.05.2024", bookmarked: false },
+            { name: "Анна Попова", specialty: "backend", description: "Python/Django разработчик. Участвую в open-source проектах.", date: "05.05.2024", bookmarked: true },
+            { name: "Максим Новиков", specialty: "devops", description: "Системный администратор с переходом в DevOps. Опыт работы с AWS.", date: "04.05.2024", bookmarked: false },
+            { name: "Елена Морозова", specialty: "datascience", description: "Аналитик данных, работаю с Big Data. Знаю Python, SQL, Tableau.", date: "03.05.2024", bookmarked: false },
+            { name: "Артем Лебедев", specialty: "frontend", description: "Angular разработчик. Преподаю на курсах по фронтенду.", date: "02.05.2024", bookmarked: false },
+            { name: "Наталья Соколова", specialty: "backend", description: "Node.js разработчик. Создаю высоконагруженные API.", date: "01.05.2024", bookmarked: false },
+            { name: "Павел Козлов", specialty: "devops", description: "Работаю с облачными решениями (AWS, Azure). Автоматизирую процессы.", date: "30.04.2024", bookmarked: false },
+            { name: "Юлия Егорова", specialty: "datascience", description: "Специалист по NLP. Разрабатываю чат-ботов с ИИ.", date: "29.04.2024", bookmarked: true },
+            { name: "Андрей Орлов", specialty: "frontend", description: "Fullstack разработчик (React + Node). Основал IT стартап.", date: "28.04.2024", bookmarked: false },
+            { name: "Татьяна Алексеева", specialty: "backend", description: "PHP/Laravel разработчик. Опыт работы - 5 лет.", date: "27.04.2024", bookmarked: false },
+            { name: "Игорь Макаров", specialty: "devops", description: "Работаю с микросервисной архитектурой. Знаю Terraform, Ansible.", date: "26.04.2024", bookmarked: false },
+            { name: "Екатерина Захарова", specialty: "datascience", description: "Биоинформатик. Анализирую геномные данные.", date: "25.04.2024", bookmarked: false },
+            { name: "Александр Степанов", specialty: "frontend", description: "TypeScript эксперт. Пишу чистый и поддерживаемый код.", date: "24.04.2024", bookmarked: true },
+            { name: "Мария Николаева", specialty: "backend", description: "Ruby on Rails разработчик. Работала в международных проектах.", date: "23.04.2024", bookmarked: false },
+            { name: "Владимир Павлов", specialty: "devops", description: "Архитектор облачных решений. Сертифицированный AWS специалист.", date: "22.04.2024", bookmarked: false },
+            { name: "Светлана Власова", specialty: "datascience", description: "Специалист по компьютерному зрению. Разрабатываю алгоритмы для беспилотников.", date: "21.04.2024", bookmarked: false },
+            { name: "Антон Григорьев", specialty: "frontend", description: "React Native разработчик. Создаю кросс-платформенные мобильные приложения.", date: "20.04.2024", bookmarked: false },
+            { name: "Валерия Белова", specialty: "backend", description: "Go-разработчик. Создаю высоконагруженные сервисы.", date: "19.04.2024", bookmarked: true },
+            { name: "Роман Комаров", specialty: "devops", description: "SRE инженер. Обеспечиваю надежность сервисов.", date: "18.04.2024", bookmarked: false },
+            { name: "Алина Киселева", specialty: "datascience", description: "Эксперт по временным рядам. Прогнозирую спрос для ритейла.", date: "17.04.2024", bookmarked: false },
+            { name: "Денис Яковлев", specialty: "frontend", description: "WebGL разработчик. Создаю 3D визуализации для веба.", date: "16.04.2024", bookmarked: false },
+            { name: "Оксана Андреева", specialty: "backend", description: ".NET разработчик. Специализация - enterprise решения.", date: "15.04.2024", bookmarked: false },
+            { name: "Глеб Морозов", specialty: "devops", description: "Security DevOps. Занимаюсь безопасностью инфраструктуры.", date: "14.04.2024", bookmarked: false }
+        ];
+
+        // Текущий слайд
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const slidesContainer = document.getElementById('slidesContainer');
+        
+        // Фильтры
+        const specialtyFilter = document.getElementById('specialtyFilter');
+        const dateFilter = document.getElementById('dateFilter');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Элементы мобильного меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        // Модальное окно авторизации
+        const authModal = document.getElementById('authModal');
+        
+        // Показать модальное окно авторизации
+        function showAuthModal() {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Скрыть модальное окно авторизации
+        function hideAuthModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Инициализация профилей
+        function initProfiles() {
+            const profilesGrid1 = document.getElementById('profilesGrid1');
+            const profilesGrid2 = document.getElementById('profilesGrid2');
+            const profilesGrid3 = document.getElementById('profilesGrid3');
+            
+            // Очищаем сетки
+            profilesGrid1.innerHTML = '';
+            profilesGrid2.innerHTML = '';
+            profilesGrid3.innerHTML = '';
+            
+            // Фильтрация профилей
+            let filteredProfiles = [...profilesData];
+            
+            // Фильтр по специальности
+            if (specialtyFilter.value !== 'all') {
+                filteredProfiles = filteredProfiles.filter(profile => profile.specialty === specialtyFilter.value);
+            }
+            
+            // Фильтр по поиску
+            if (searchInput.value) {
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredProfiles = filteredProfiles.filter(profile => 
+                    profile.name.toLowerCase().includes(searchTerm) || 
+                    profile.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Сортировка
+            if (dateFilter.value === 'newest') {
+                filteredProfiles.sort((a, b) => new Date(b.date.split('.').reverse().join('-')) - new Date(a.date.split('.').reverse().join('-')));
+            } else if (dateFilter.value === 'oldest') {
+                filteredProfiles.sort((a, b) => new Date(a.date.split('.').reverse().join('-')) - new Date(b.date.split('.').reverse().join('-')));
+            } else if (dateFilter.value === 'popular') {
+                // Здесь можно добавить сортировку по популярности (например, по количеству просмотров)
+                filteredProfiles.sort((a, b) => b.bookmarked - a.bookmarked);
+            }
+            
+            // Обновляем счетчик профилей
+            document.getElementById('profilesCount').textContent = `найдено профилей: ${filteredProfiles.length}`;
+            
+            // Разделяем профили на 3 слайда (по 9 на каждом)
+            for (let i = 0; i < filteredProfiles.length; i++) {
+                const profile = filteredProfiles[i];
+                const profileCard = createProfileCard(profile);
+                
+                if (i < 9) {
+                    profilesGrid1.appendChild(profileCard);
+                } else if (i < 18) {
+                    profilesGrid2.appendChild(profileCard);
+                } else {
+                    profilesGrid3.appendChild(profileCard);
+                }
+            }
+            
+            // Обновляем видимость слайдов
+            updateSlidesVisibility();
+        }
+        
+        // Создание карточки профиля
+        function createProfileCard(profile) {
+            const card = document.createElement('div');
+            card.className = 'profile-card';
+            
+            const bookmarkClass = profile.bookmarked ? 'fas fa-bookmark bookmark-btn active' : 'far fa-bookmark bookmark-btn';
+            
+            card.innerHTML = `
+                <button class="${bookmarkClass}" onclick="toggleBookmark(this)"></button>
+                <div class="profile-name">${profile.name}</div>
+                <div class="profile-specialty ${profile.specialty}">${getSpecialtyName(profile.specialty)}</div>
+                <div class="profile-description">${profile.description}</div>
+                <div class="profile-date">Опубликовано: ${profile.date}</div>
+            `;
+            
+            return card;
+        }
+        
+        // Получение читаемого названия специальности
+        function getSpecialtyName(specialty) {
+            switch(specialty) {
+                case 'frontend': return 'Frontend разработчик';
+                case 'backend': return 'Backend разработчик';
+                case 'devops': return 'DevOps инженер';
+                case 'datascience': return 'Data Scientist';
+                default: return 'IT специалист';
+            }
+        }
+        
+        // Переключение закладки
+        function toggleBookmark(button) {
+            button.classList.toggle('active');
+            button.classList.toggle('fas');
+            button.classList.toggle('far');
+            
+            // Здесь можно добавить логику сохранения состояния закладки
+        }
+        
+        // Переход к определенному слайду
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Обновляем активные точки
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            updateSlidesVisibility();
+        }
+        
+        // Обновление видимости слайдов
+        function updateSlidesVisibility() {
+            slides.forEach((slide, index) => {
+                const profilesGrid = slide.querySelector('.profiles-grid');
+                if (profilesGrid.children.length === 0) {
+                    slide.style.display = 'none';
+                    dots[index].style.display = 'none';
+                } else {
+                    slide.style.display = 'block';
+                    dots[index].style.display = 'block';
+                }
+            });
+        }
+        
+        // Переключение навигационной панели
+        function toggleNav() {
+            mobileMenuBtn.classList.toggle('active');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            
+            // Блокируем скролл страницы при открытом меню
+            if (sidebar.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Закрытие меню при клике на оверлей
+        function closeNav() {
+            mobileMenuBtn.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            initProfiles();
+            
+            // Навешиваем обработчики на фильтры
+            specialtyFilter.addEventListener('change', initProfiles);
+            dateFilter.addEventListener('change', initProfiles);
+            searchInput.addEventListener('input', initProfiles);
+            
+            // Обработчики для мобильного меню
+            mobileMenuBtn.addEventListener('click', toggleNav);
+            overlay.addEventListener('click', closeNav);
+            
+            // Обработчики для навигационных ссылок
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showAuthModal();
+                });
+            });
+            
+            // Обработчики для блоков "Мой профиль" и "Мои чаты"
+            document.getElementById('profileBlock').addEventListener('click', (e) => {
+                e.preventDefault();
+                showAuthModal();
+            });
+            
+            document.getElementById('chatsBlock').addEventListener('click', (e) => {
+                e.preventDefault();
+                showAuthModal();
+            });
+            
+            // Закрытие модального окна при клике вне его
+            authModal.addEventListener('click', (e) => {
+                if (e.target === authModal) {
+                    hideAuthModal();
+                }
+            });
+            
+            // Автоматическое перелистывание слайдов
+            setInterval(() => {
+                const nextSlide = (currentSlide + 1) % 3;
+                // Проверяем, есть ли профили на следующем слайде
+                if (slides[nextSlide].style.display !== 'none') {
+                    goToSlide(nextSlide);
+                } else {
+                    // Если следующего слайда нет, переходим к первому
+                    goToSlide(0);
+                }
+            }, 5000);
+        };
+    </script>
 </body>
 </html>
