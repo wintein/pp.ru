@@ -20,11 +20,10 @@ function validateUsername(username) {
 }
 
 function validateEmail(email) {
-    // Более строгий regex для email (без % и +)
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     
     if (!email) return "Email обязателен для заполнения";
-    if (email.length < 15) return "Email должен быть не короче 15 символов"; // уменьшил минимальную длину
+    if (email.length < 6) return "Email должен быть не короче 6 символов";
     if (email.length > 30) return "Email должен быть не длиннее 30 символов";
     if (!emailRegex.test(email)) return "Пожалуйста, введите корректный email (пример: user@example.com)";
     

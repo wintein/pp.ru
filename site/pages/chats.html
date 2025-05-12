@@ -24,7 +24,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Мобильное меню - бургер */
+        /* Мобильное меню */
         .mobile-menu-btn {
             display: none;
             position: absolute;
@@ -182,10 +182,10 @@
             background-color: white;
             padding: 24px;
             width: 100%;
-            height: 115px; /* Фиксированная высота */
-            display: flex; /* Включаем flex-контейнер */
-            align-items: center; /* Выравниваем содержимое по вертикали */
-            justify-content: center; /* Выравниваем по горизонтали */
+            height: 115px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid #e5e7eb;
             position: relative;
@@ -272,7 +272,7 @@
         .chat-list {
             max-height: 600px;
             overflow-y: auto;
-}
+        }
 
         .chat-item {
             display: flex;
@@ -646,7 +646,7 @@
             }
             
             .chat-avatar {
-                min-width: 48px; /* Фиксированная минимальная ширина */
+                min-width: 48px;
                 flex-shrink: 0; /* Запрещаем сжатие */
             }
 
@@ -667,7 +667,7 @@
                 display: none;
             }
             .chat-item {
-                padding-right: 12px; /* Добавляем отступ справа */
+                padding-right: 12px;
             }
     
             .chat-info {
@@ -712,7 +712,7 @@
     </style>
 </head>
 <body>
-    <!-- Кнопка бургер-меню -->
+    <!-- Кнопка меню -->
     <div class="mobile-menu-btn" id="mobileMenuBtn">
         <span></span>
         <span></span>
@@ -1224,7 +1224,7 @@
                 // Прокручиваем вниз
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 
-                // Имитируем ответ (можно удалить в реальном приложении)
+                // Имитируем ответ
                 setTimeout(() => {
                     const replyTime = new Date();
                     const replyTimeString = `${replyTime.getHours()}:${replyTime.getMinutes().toString().padStart(2, '0')}`;

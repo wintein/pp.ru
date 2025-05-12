@@ -24,7 +24,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Мобильное меню - бургер */
+        /* Мобильное меню */
         .mobile-menu-btn {
             display: none;
             position: absolute;
@@ -183,9 +183,9 @@
             padding: 24px;
             width: 100%;
             height: 115px;
-            display: flex; /* Включаем flex-контейнер */
-            align-items: center; /* Выравниваем содержимое по вертикали */
-            justify-content: center; /* Выравниваем по горизонтали */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid #e5e7eb;
             position: relative;
@@ -206,11 +206,11 @@
 
         .content {
             display: flex;
-        flex-direction: column;
-        gap: 24px;
-        max-width: 1400px;
-        margin: 0 auto;
-        width: 100%;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .row {
@@ -219,7 +219,7 @@
             justify-content: center;
         }
 
-        /* Обновленные стили для блоков профиля и чатов */
+        /* Стили для блоков профиля и чатов */
         .block {
             background-color: white;
             border-radius: 16px;
@@ -303,7 +303,7 @@
             color: #3b82f6;
         }
 
-        /* Обновленные стили для поиска и фильтров */
+        /* Стили для поиска и фильтров */
         .search-container {
             background-color: white;
             border-radius: 16px;
@@ -390,7 +390,7 @@
             margin-bottom: 16px;
         }
 
-        /* Стили для слайдера (оставлены без изменений) */
+        /* Стили для слайдера */
         .profiles-slider {
             position: relative;
             width: 100%;
@@ -724,6 +724,7 @@
                 font-size: 22px;
                 padding-left: 40px;
             }
+
             nav .logo {
             font-size: 28px;
             }
@@ -731,7 +732,7 @@
     </style>
 </head>
 <body>
-    <!-- Кнопка бургер-меню -->
+    <!-- Кнопка меню -->
     <div class="mobile-menu-btn" id="mobileMenuBtn">
         <span></span>
         <span></span>
@@ -810,7 +811,7 @@
         <main>
             <div class="content">
                 <div class="row">
-                    <!-- Обновленный блок "Мой профиль" -->
+                    <!-- Блок "Мой профиль" -->
                     <div class="block" id="profileBlock">
                         <div class="block-header">
                             <i class="fas fa-user"></i>
@@ -835,7 +836,7 @@
                         </div>
                     </div>
                     
-                    <!-- Обновленный блок "Мои чаты" -->
+                    <!-- Блок "Мои чаты" -->
                     <div class="block" id="chatsBlock">
                         <div class="block-header">
                             <i class="fas fa-comments"></i>
@@ -861,7 +862,7 @@
                     </div>
                 </div>
                 
-                <!-- Обновленный блок поиска и фильтров -->
+                <!-- Блок поиска и фильтров -->
                 <div class="search-container">
                     <h2 class="search-title">Профили разработчиков</h2>
                     <div class="search">
@@ -890,26 +891,20 @@
                     </div>
                     <p class="profiles-count" id="profilesCount">найдено профилей: 27</p>
                     
-                    <!-- Слайдер профилей (оставлен без изменений) -->
+                    <!-- Слайдер профилей -->
                     <div class="profiles-slider">
                         <div class="slides-container" id="slidesContainer">
                             <!-- Слайд 1 -->
                             <div class="slide">
-                                <div class="profiles-grid" id="profilesGrid1">
-                                    <!-- Профили будут добавлены через JavaScript -->
-                                </div>
+                                <div class="profiles-grid" id="profilesGrid1"></div>
                             </div>
                             <!-- Слайд 2 -->
                             <div class="slide">
-                                <div class="profiles-grid" id="profilesGrid2">
-                                    <!-- Профили будут добавлены через JavaScript -->
-                                </div>
+                                <div class="profiles-grid" id="profilesGrid2"></div>
                             </div>
                             <!-- Слайд 3 -->
                             <div class="slide">
-                                <div class="profiles-grid" id="profilesGrid3">
-                                    <!-- Профили будут добавлены через JavaScript -->
-                                </div>
+                                <div class="profiles-grid" id="profilesGrid3"></div>
                             </div>
                         </div>
                         
