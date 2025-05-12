@@ -3,15 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Донат</title>
+    <title>PP.RU - Поддержать проект</title>
     <link rel="icon" type="image/x-icon" href="../sources/icon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../styles/donate.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8fafc;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Мобильное меню - бургер */
+        .mobile-menu-btn {
+            display: none;
+            position: absolute;
+            top: 35px;
+            left: 24px;
+            width: 40px;
+            height: 40px;
+            z-index: 1000;
+            cursor: pointer;
+            background: #3b82f6;
+            border-radius: 8px;
+            padding: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .mobile-menu-btn span:nth-child(1) {
+            transform: translateY(-8px);
+        }
+
+        .mobile-menu-btn span:nth-child(2) {
+            transform: translateY(0);
+        }
+
+        .mobile-menu-btn span:nth-child(3) {
+            transform: translateY(8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(0) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(0) rotate(-45deg);
+        }
+
+        /* Навигационная панель */
+        nav {
+            width: 250px;
+            background-color: #202123;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: all 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        /* Затемнение фона при открытом меню */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        nav .logo {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            padding: 12px 16px;
+            color: #8C8C8D;
+            cursor: pointer;
+            margin-left: -20px;
+            margin-right: -20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li:hover {
+            background-color: #2d3748;
+            color: white;
+        }
+
+        nav ul li.active {
+            background-color: #3b82f6; 
+            color: white;
+        }
+
+        nav ul li.active i {
+            color: white;
+        }
+
+        nav ul li i {
+            margin-right: 12px;
+            color: #8C8C8D;
+            width: 20px;
+            text-align: center;
+        }
+
+        nav ul li.divider {
+            border-top: 1px solid #374151;
+            margin: 15px -20px;
+            padding: 0;
+            height: 1px;
+        }
+
+        nav ul li a {
+            color: inherit;
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            width: 100%; 
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            background-color: white;
+            padding: 24px;
+            width: 100%;
+            height: 115px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        header h1 {
+            color: #1f2937;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        main {
+            background-color: #f3f4f6;
+            padding: 40px 24px;
+            flex-grow: 1;
+        }
+
+        /* Стили для страницы пожертвований */
+        .donation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .donation-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .donation-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .amount-option {
+            position: relative;
+        }
+
+        .amount-option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .amount-option label {
+            display: block;
+            padding: 15px;
+            background-color: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .amount-option input:checked + label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .amount-option input:focus + label {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .custom-amount {
+            margin-bottom: 30px;
+        }
+
+        .custom-amount label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .custom-amount input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .custom-amount input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+
+        .payment-methods h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .payment-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .payment-option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .payment-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background-color: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .payment-option img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+        }
+
+        .payment-option span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .payment-option input:checked + label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .payment-option input:focus + label {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .donate-btn {
+            width: 100%;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .donate-btn:hover {
+            background-color: #0062ff;
+            transform: translateY(-2px);
+        }
+
+        .benefits {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .benefits h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .benefit-icon {
+            color: #3b82f6;
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .benefit-text {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        /* Футер */
+        footer {
+            background-color: #202123;
+            color: white;
+            padding: 24px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            color: #9ca3af;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .social-links a {
+            color: #d1d5db;
+            font-size: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            nav {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            nav.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .donation-container {
+                padding: 30px 20px;
+            }
+
+            .donation-title {
+                font-size: 24px;
+            }
+
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .payment-options {
+                flex-direction: column;
+            }
+
+            .payment-option {
+                min-width: 100%;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            header h1 {
+                font-size: 22px;
+                padding-left: 40px;
+            }
+            nav .logo {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Кнопка для открытия/закрытия навигационной панели -->
-    <div id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+    <!-- Кнопка бургер-меню -->
+    <div class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Затемнение фона -->
+    <div class="overlay" id="overlay"></div>
 
     <!-- Навигационная панель -->
     <nav id="sidebar">
@@ -65,74 +581,226 @@
     <!-- Основной контент -->
     <div class="main-content">
         <header>
-            <h1>Внесение пожертвований</h1>
+            <h1>Поддержать проект</h1>
         </header>
         <main>
-            <div class="content">
-                <div class="row">
-                    <div class="block">
-                        <h2>Хотите сделать пожертвование создателям сайта?</h2>
-                        <img class="gif" src="../sources/osaka.gif">
-                        
-                        <h2>Реквизиты: <u>1234 5678 9101 1121</u></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="block">
-                        <h2>Топ донатеров сайта:</h2>
-                        <div class="donators-table-container">
-                            <table class="donators-table">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Ник донатера</th>
-                                        <th>Дата</th>
-                                        <th>Размер доната</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>tyler_durden</td>
-                                        <td>2025-01-10</td>
-                                        <td>500 ₽</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>WalterWhite</td>
-                                        <td>2024-12-21</td>
-                                        <td>300 ₽</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>lightningMCqueen</td>
-                                        <td>2025-01-20</td>
-                                        <td>200 ₽</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Einstein</td>
-                                        <td>2024-11-14</td>
-                                        <td>100 ₽</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Om Nom</td>
-                                        <td>2024-09-15</td>
-                                        <td>50 ₽</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="donation-container">
+                <h2 class="donation-title">Поддержите развитие платформы</h2>
+                <p class="donation-subtitle">
+                    Ваше пожертвование поможет нам улучшать сервис, добавлять новые функции
+                    и поддерживать работу платформы. Любая сумма важна!
+                </p>
+
+                <form id="donationForm">
+                    <div class="amount-options">
+                        <div class="amount-option">
+                            <input type="radio" id="amount-100" name="amount" value="100">
+                            <label for="amount-100">100 ₽</label>
                         </div>
-                        <button type="button" class="button" onclick="location.href = 'main.html'">На главную</button>
+                        <div class="amount-option">
+                            <input type="radio" id="amount-300" name="amount" value="300">
+                            <label for="amount-300">300 ₽</label>
+                        </div>
+                        <div class="amount-option">
+                            <input type="radio" id="amount-500" name="amount" value="500" checked>
+                            <label for="amount-500">500 ₽</label>
+                        </div>
+                        <div class="amount-option">
+                            <input type="radio" id="amount-1000" name="amount" value="1000">
+                            <label for="amount-1000">1 000 ₽</label>
+                        </div>
+                    </div>
+
+                    <div class="custom-amount">
+                        <label for="customAmount">Или введите свою сумму:</label>
+                        <input type="number" id="customAmount" placeholder="Сумма в рублях" min="10">
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>Способ оплаты</h3>
+                        <div class="payment-options">
+                            <div class="payment-option">
+                                <input type="radio" id="payment-card" name="payment" value="card" checked>
+                                <label for="payment-card">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Банковская карта">
+                                    <span>Карта</span>
+                                </label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="payment-yoomoney" name="payment" value="yoomoney">
+                                <label for="payment-yoomoney">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="ЮMoney">
+                                    <span>ЮMoney</span>
+                                </label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="payment-paypal" name="payment" value="paypal">
+                                <label for="payment-paypal">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal">
+                                    <span>PayPal</span>
+                                </label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="payment-crypto" name="payment" value="crypto">
+                                <label for="payment-crypto">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/6001/6001367.png" alt="Криптовалюта">
+                                    <span>Крипто</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="donate-btn">
+                        <i class="fas fa-heart"></i>
+                        Поддержать проект
+                    </button>
+                </form>
+
+                <div class="benefits">
+                    <h3>Что даёт ваша поддержка?</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <i class="fas fa-server benefit-icon"></i>
+                            <p class="benefit-text">Стабильную работу серверов и инфраструктуры</p>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-bolt benefit-icon"></i>
+                            <p class="benefit-text">Быструю разработку новых функций</p>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-shield-alt benefit-icon"></i>
+                            <p class="benefit-text">Улучшенную безопасность и защиту данных</p>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-users benefit-icon"></i>
+                            <p class="benefit-text">Бесплатный доступ для всех пользователей</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- Футер -->
+        <footer>
+            <div class="footer-links">
+                <a href="about.html">О нас</a>
+                <a href="indev.html">Правила</a>
+                <a href="indev.html">Конфиденциальность</a>
+                <a href="indev.html">Контакты</a>
+                <a href="indev.html">Вакансии</a>
+            </div>
+            <p>© 2025 PP.RU - Платформа для поиска IT-команд</p>
+            <div class="social-links">
+                <a href="indev.html"><i class="fab fa-vk"></i></a>
+                <a href="indev.html"><i class="fab fa-telegram"></i></a>
+                <a href="indev.html"><i class="fab fa-github"></i></a>
+                <a href="indev.html"><i class="fab fa-youtube"></i></a>
+            </div>
+        </footer>
     </div>
-    <footer>
-        <p>© 2025 PP.RU</p>
-    </footer>
-    <script src="../scripts/navbar.js"></script>
+
+    <script>
+        // Переключение навигационной панели
+        function toggleNav() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            mobileMenuBtn.classList.toggle('active');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            
+            // Блокируем скролл страницы при открытом меню
+            if (sidebar.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Закрытие меню при клике на оверлей
+        function closeNav() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            mobileMenuBtn.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Обработка формы пожертвования
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Получаем выбранную сумму
+            let amount = document.querySelector('input[name="amount"]:checked').value;
+            const customAmount = document.getElementById('customAmount').value;
+            
+            // Если введена своя сумма, используем её
+            if (customAmount && !isNaN(customAmount)) {
+                amount = customAmount;
+            }
+            
+            // Получаем выбранный способ оплаты
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            // Здесь должна быть логика обработки платежа
+            // Для демонстрации просто покажем alert
+            alert(`Спасибо! Вы выбрали пожертвование ${amount} ₽ через ${getPaymentMethodName(paymentMethod)}.`);
+            
+            // В реальном приложении здесь будет редирект на платежный шлюз
+            // или AJAX-запрос к платежному API
+        });
+        
+        // Вспомогательная функция для получения названия способа оплаты
+        function getPaymentMethodName(method) {
+            const methods = {
+                'card': 'банковскую карту',
+                'yoomoney': 'ЮMoney',
+                'paypal': 'PayPal',
+                'crypto': 'криптовалюту'
+            };
+            return methods[method] || method;
+        }
+        
+        // Обработка ввода своей суммы
+        document.getElementById('customAmount').addEventListener('input', function() {
+            if (this.value) {
+                document.querySelectorAll('input[name="amount"]').forEach(radio => {
+                    radio.checked = false;
+                });
+            }
+        });
+        
+        // Обработка выбора суммы из списка
+        document.querySelectorAll('input[name="amount"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('customAmount').value = '';
+                }
+            });
+        });
+        
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            // Обработчики для мобильного меню
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const overlay = document.getElementById('overlay');
+            
+            mobileMenuBtn.addEventListener('click', toggleNav);
+            overlay.addEventListener('click', closeNav);
+            
+            // Закрытие меню при клике на пункт меню (для мобильной версии)
+            document.querySelectorAll('nav ul li a').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        closeNav();
+                    }
+                });
+            });
+        };
+    </script>
 </body>
 </html>
